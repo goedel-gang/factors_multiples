@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define NOTIFY_FREQ 1000000
-#define BOARD_SIZE 27
+#define BOARD_SIZE 100
 
 // macro used for debugging statements, while still exposing them to the
 // compiler. be careful if using `else` nearby
