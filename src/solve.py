@@ -64,7 +64,7 @@ def paths(graph, get_shuffle):
     Wraps _paths() to find all possible paths from a (directed, cyclic) graph
     with no current state.
     """
-    for vertex in get_shuffle(graph.keys(), 1):
+    for vertex in get_shuffle(graph.keys(), 101):
         yield from _paths(graph, {vertex}, [vertex], vertex)
 
 def longest_path(n, get_shuffle, v=False):
