@@ -2,6 +2,7 @@ TARGET = crack
 LIBS = -lm
 CC = gcc
 CFLAGS = -Wall -pedantic
+XFLAGS :=
 
 debug: CFLAGS += -DDEBUG -g
 deboptimise: CFLAGS += -DDEBUG -g -O3
@@ -19,7 +20,7 @@ OBJECTS = $(patsubst %.c, %.o, $(wildcard *.c))
 HEADERS = $(wildcard *.h)
 
 %.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(XFLAGS) $(CFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
 
