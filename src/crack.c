@@ -3,7 +3,9 @@
 #include <stdbool.h>
 #include <time.h>
 
+#ifdef DEBUG
 #define NOTIFY_FREQ 1000000
+#endif
 
 #ifndef BOARD_SIZE
 #define BOARD_SIZE 100
@@ -24,6 +26,7 @@ typedef int tile_int;
 // the user about what the seed was.
 unsigned int seed;
 
+// Euclid's gcd algorithm
 int gcd(int a, int b) {
     int temp;
     while (b != 0) {
@@ -34,6 +37,8 @@ int gcd(int a, int b) {
     return a;
 }
 
+// Perform a merge-sort merge of two neighbouring sections of an array. Compares
+// based on GCD with gcd_target.
 void gcd_merge(tile_int *arr, tile_int gcd_target,
                tile_int lower, tile_int mid, tile_int upper) {
     tile_int buffer[BOARD_SIZE];
@@ -60,10 +65,10 @@ void gcd_merge(tile_int *arr, tile_int gcd_target,
     }
 }
 
+// GCD-wise mergesort - see gcd-merge
 void gcd_merge_sort(tile_int *arr, tile_int gcd_target,
                     tile_int lower, tile_int upper) {
     tile_int mid;
-    D printf("merge sort tgt %d, lo %d, up %d\n", gcd_target, lower, upper);
     if ((upper - lower) > 1) {
         mid = (lower + upper) / 2;
         gcd_merge_sort(arr, gcd_target, lower, mid);
