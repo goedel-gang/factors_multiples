@@ -12,7 +12,6 @@ from shutil import get_terminal_size
 from time import time
 from random import sample
 from math import gcd
-from shutil import get_terminal_size
 
 from smartparse import ArgumentParser
 
@@ -70,8 +69,7 @@ def paths(graph, get_shuffle):
 def longest_path(n, get_shuffle, v=False):
     v and print("Looking for longest path in 1..{}".format(n))
     graph = construct_graph(n, get_shuffle)
-    term_width = get_terminal_size()[0]
-    v and print("Constructed graph {}".format(pformat(graph, width=term_width)))
+    v and print("Constructed graph {}".format(pformat(graph, width=WIDTH)))
     best_path = []
     start = time()
     for ind, path in enumerate(paths(graph, get_shuffle)):
