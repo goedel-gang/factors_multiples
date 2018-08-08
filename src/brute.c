@@ -21,6 +21,54 @@ typedef int tile_int;
 // the user about what the seed was.
 unsigned int seed;
 
+int gcd(int a, int b) {
+    int temp;
+    while (b != 0) {
+        temp = a % b;
+        a = b;
+        b = temp;
+    }
+    return a;
+}
+
+void gcd_merge(tile_int *arr, tile_int gcd_target,
+               tile_int lower, tile_int mid, tile_int upper) {
+    tile_int buffer[BOARD_SIZE];
+    tile_int a, b, i;
+    a = lower;
+    b = mid;
+    i = 0;
+    D printf("merging %d:%d:%d\n", lower, mid, upper);
+    while ((a < mid) && (b < upper)) {
+        if (gcd(arr[a], gcd_target) > gcd(arr[b], gcd_target)) {
+            buffer[i++] = arr[a++];
+        } else {
+            buffer[i++] = arr[b++];
+        }
+    }
+    for (; a < mid; a++) {
+        buffer[i++] = arr[a];
+    }
+    for (; b < upper; b++) {
+        buffer[i++] = arr[b];
+    }
+    for (i--; i >= 0; i--) {
+        arr[lower + i] = buffer[i];
+    }
+}
+
+void gcd_merge_sort(tile_int *arr, tile_int gcd_target,
+                    tile_int lower, tile_int upper) {
+    tile_int mid;
+    D printf("merge sort tgt %d, lo %d, up %d\n", gcd_target, lower, upper);
+    if ((upper - lower) > 1) {
+        mid = (lower + upper) / 2;
+        gcd_merge_sort(arr, gcd_target, lower, mid);
+        gcd_merge_sort(arr, gcd_target, mid, upper);
+        gcd_merge(arr, gcd_target, lower, mid, upper);
+    }
+}
+
 // fisher-yates shuffle, used to randomise the dfs
 void shuffle(tile_int *arr, size_t n) {
     int i, idx;
@@ -58,7 +106,6 @@ tile_int **make_graph(tile_int n) {
         for (j = 1; j < i; j++) {
             if (i % j == 0) {
                 result[i][pos] = j;
-                D printf("%d has factor %d\n", i, j);
                 pos++;
             }
         }
@@ -69,6 +116,7 @@ tile_int **make_graph(tile_int n) {
         }
         result[i][pos] = -1;
         shuffle(result[i], pos);
+        gcd_merge_sort(result[i], i, 0, pos - 1);
     }
     return result;
 }
