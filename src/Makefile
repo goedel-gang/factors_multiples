@@ -1,4 +1,4 @@
-TARGET = brute
+TARGET = crack
 LIBS = -lm
 CC = gcc
 CFLAGS = -Wall -pedantic
