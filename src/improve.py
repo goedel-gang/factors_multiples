@@ -54,7 +54,8 @@ if __name__ == "__main__":
     while True:
         improvement = list(improve(cur_seq))
         if len(improvement) > len(cur_seq):
-            print("improved to [{}]{}".format(len(improvement), " ".join(map(str, improvement))))
+            print("improved to [{}]{}".format(len(improvement),
+                                              " ".join(map(str, improvement))))
             cur_seq = improvement
         else:
             print("no further improvement found")
