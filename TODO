@@ -13,3 +13,6 @@ looking at prime factorisations/subpaths as prime factorisations
 make improve look at edges. (first & last eg if starts w/ 1)
 
 clustering??
+
+rewrite the gcd approach in C, and also make a proper pipeline to verify and
+expand each match.
