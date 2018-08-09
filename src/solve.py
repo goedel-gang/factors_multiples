@@ -75,15 +75,18 @@ def longest_path(n, get_shuffle, v=False):
     v and print("Constructed graph {}".format(pformat(graph, width=WIDTH)))
     best_path = []
     start = time()
-    for ind, path in enumerate(paths(graph, get_shuffle)):
-        if ind % UPDATE_FREQ == 0:
-            v and print("\r{:.1e}Hz  {}"
-                .format(ind / (time() - start),
-                    " ".join(map("{: >3}".format, path[:n // 5]))), end="")
-        if len(path) > len(best_path):
-            best_path = list(path)
-            print("\rnew best [{}]{}".format(len(best_path),
-                                             " ".join(map(str, best_path))))
+    try:
+        for ind, path in enumerate(paths(graph, get_shuffle)):
+            if ind % UPDATE_FREQ == 0:
+                v and print("\r{:.1e}Hz  {}"
+                    .format(ind / (time() - start),
+                        " ".join(map("{: >3}".format, path[:n // 5]))), end="")
+            if len(path) > len(best_path):
+                best_path = list(path)
+                print("\rnew best [{}]{}".format(len(best_path),
+                                                 " ".join(map(str, best_path))))
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == "__main__":
     args = get_args()
