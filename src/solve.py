@@ -51,13 +51,13 @@ def _paths(graph, seen, path, cur):
     """
     dead_end = True
     for vertex in graph[cur]:
-        if vertex not in seen:
+        if not seen[vertex]:
             dead_end = False
-            seen.add(vertex)
+            seen[vertex] = True
             path.append(vertex)
             yield from _paths(graph, seen, path, vertex)
             path.pop()
-            seen.remove(vertex)
+            seen[vertex] = False
     if dead_end:
         yield path
 
@@ -67,7 +67,9 @@ def paths(graph, get_shuffle):
     with no current state.
     """
     for vertex in get_shuffle(list(range(1, len(graph))), None):
-        yield from _paths(graph, {vertex}, [vertex], vertex)
+        seen = [False] * (len(graph))
+        seen[vertex] = True
+        yield from _paths(graph, seen, [vertex], vertex)
 
 def longest_path(n, get_shuffle, v=False):
     v and print("Looking for longest path in 1..{}".format(n))
