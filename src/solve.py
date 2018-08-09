@@ -36,10 +36,13 @@ def construct_graph(n, get_shuffle):
     each of its factors and multiples. It uses a directed representation of this
     normally undirected graph so DFS can be applied. Not particularly worried
     about time complexity here as this is a singly used initialisation.
+
+    It could be a dictionary but seeing as the keys are in the range [1..n] this
+    is better represented as a list, which is still a kind of mapping.
     """
-    return {i: get_shuffle([j for j in range(1, i) if i % j == 0] # factors
+    return [1] + [get_shuffle([j for j in range(1, i) if i % j == 0] # factors
                              + list(range(2 * i, n + 1, i)), i) # multiples
-            for i in range(1, n + 1)} # each tile
+            for i in range(1, n + 1)] # each tile
 
 def _paths(graph, seen, path, cur):
     """
@@ -63,7 +66,7 @@ def paths(graph, get_shuffle):
     Wraps _paths() to find all possible paths from a (directed, cyclic) graph
     with no current state.
     """
-    for vertex in get_shuffle(graph.keys(), 101):
+    for vertex in get_shuffle(list(range(1, len(graph))), None):
         yield from _paths(graph, {vertex}, [vertex], vertex)
 
 def longest_path(n, get_shuffle, v=False):
@@ -87,7 +90,7 @@ if __name__ == "__main__":
     if args.randomise:
         def get_shuffle(l, node):
             ret = sample(l, len(l))
-            if args.gcd:
+            if args.gcd and node is not None:
                 if args.verbose:
                     print("sorting by gcd: {} {}".format(l, node))
                 # sort in descending order by gcd with node

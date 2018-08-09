@@ -20,6 +20,8 @@ def get_args():
     parser = ArgumentParser(description=__doc__)
     parser.add_argument("-s", "--sequence" , required=True, nargs="+", type=int,
             help="sequence to optimise")
+    parser.add_argument("-n", type=int, default=100,
+            help="size of board")
     return parser.parse_args()
 
 def link_exists(a, b):
@@ -33,9 +35,9 @@ def rolling_slice(it, n):
         sl.append(i)
         yield sl
 
-def improve(nums):
+def improve(nums, n):
     assert len(set(nums)) == len(nums)
-    unused = list(set(range(1, 101)) - set(nums))
+    unused = list(set(range(1, n + 1)) - set(nums))
     shuffle(unused)
     for a, b in rolling_slice(nums, 2):
         assert link_exists(a, b)
@@ -52,7 +54,7 @@ if __name__ == "__main__":
     cur_seq = args.sequence
     print("given [{}]{}".format(len(cur_seq), " ".join(map(str, cur_seq))))
     while True:
-        improvement = list(improve(cur_seq))
+        improvement = list(improve(cur_seq, args.n))
         if len(improvement) > len(cur_seq):
             print("improved to [{}]{}".format(len(improvement),
                                               " ".join(map(str, improvement))))

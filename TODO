@@ -16,3 +16,5 @@ clustering??
 
 rewrite the gcd approach in C, and also make a proper pipeline to verify and
 expand each match.
+
+rewrite python to use an array for indexing
