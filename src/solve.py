@@ -80,13 +80,13 @@ def longest_path(n, get_shuffle, v=False):
     try:
         for ind, path in enumerate(paths(graph, get_shuffle)):
             if ind % UPDATE_FREQ == 0:
-                v and print("\r{:.1e}Hz  {}"
-                    .format(ind / (time() - start),
-                        " ".join(map("{: >3}".format, path[:n // 5]))), end="")
+                v and print("\r{:.1e}@{:.1e}Hz" .format(ind,
+                                                        ind / (time() - start)),
+                            end="")
             if len(path) > len(best_path):
                 best_path = list(path)
-                print("\rnew best [{}]{}".format(len(best_path),
-                                                 " ".join(map(str, best_path))))
+                print("\r[{}]{}".format(len(best_path),
+                                        " ".join(map(str, best_path))))
     except KeyboardInterrupt:
         pass
 
