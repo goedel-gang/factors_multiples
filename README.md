@@ -27,7 +27,7 @@ utility I generated the following sequence:
 
     >[76]58 29 87 3 69 23 92 46 2 62 31 93 1 35 70 10 40 80 20 100 50 25 75 15 45 90 30 60 12 96 48 24 72 36 18 54 27 81 9 63 21 42 84 28 56 14 98 49 7 91 13 52 26 78 6 66 33 99 11 44 22 88 8 16 32 64 4 76 38 19 95 5 85 17 68 34
 
-![screenshot](https://github.com/elterminad0r/factors_multiples/blob/master/screenshot.png)
+![screenshot](https://github.com/goedel-gang/factors_multiples/blob/master/screenshot.png)
 
 There are 10 primes between 50 and 100: 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.
 Only one of these can be used (via the 1), so this implies a weak upper bound of
